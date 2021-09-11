@@ -1,0 +1,223 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>hola,小番茄🍅~</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #060e1b;
+      overflow: hidden;
+    }
+
+    h1 {
+      position: absolute;
+      top: 30%;
+      width: 100%;
+      font-size: 38px;
+      text-align: center;
+      color: #ffffff;
+      font-family: Simsun, Arial, Helvetica, sans-serif;
+    }
+
+    .content {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .bottom {
+      text-align: center;
+      top: 90%;
+      width: 100%;
+      position: absolute;
+      color: #fff;
+      font-size: 12px;
+      padding: 0 10%;
+      box-sizing: border-box;
+    }
+
+    .content p a,
+    .bottom p a {
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      text-decoration: none;
+    }
+
+    .content p a {
+      color: hotpink;
+    }
+
+    @media only screen and (min-width: 799px) {
+      h1 {
+        top: 35%;
+        font-size: 48px;
+      }
+
+      .bottom {
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1 style="color:skyblue" class='h1'>Hello~</h1>
+  <div class="content">
+    <p><a>mia principessa</a></p>
+    <br>
+    <p><a href="hah.html" class='name'>yjh🍅</a></p>
+  </div>
+  <div class="bottom">
+    <p><a href="javascript:;" style="color:gold">平安喜乐 万事胜意 </a></p>
+    <p><a href="javascript:;" style="color:gold">大河天天开心</a></p>
+    <!-- <a><a href="javascript:;" style="color:rgb(190, 122, 190);font-size: 10px;"></a></p> -->
+  </div>
+  <canvas id="canvas"></canvas>
+  <script>
+    const colorArr = [317, 217, 417, 517, 617, 717];
+    ("use strict");
+    var canvas = document.getElementById("canvas"),
+      ctx = canvas.getContext("2d"),
+      w = (canvas.width = window.innerWidth),
+      h = (canvas.height = window.innerHeight),
+      stars = [],
+      count = 0,
+      maxStars = 1200;
+    var hue = colorArr[Math.floor(Math.random() * colorArr.length)];
+    var canvas2 = document.createElement("canvas"),
+      ctx2 = canvas2.getContext("2d");
+    canvas2.width = 100;
+    canvas2.height = 100;
+    var half = canvas2.width / 2,
+      gradient2 = ctx2.createRadialGradient(half, half, 0, half, half, half);
+    gradient2.addColorStop(0.025, "#fff");
+    gradient2.addColorStop(0.1, "hsl(" + hue + ", 61%, 33%)");
+    gradient2.addColorStop(0.25, "hsl(" + hue + ", 64%, 6%)");
+    gradient2.addColorStop(1, "transparent");
+
+    ctx2.fillStyle = gradient2;
+    ctx2.beginPath();
+    ctx2.arc(half, half, half, 0, Math.PI * 2);
+    ctx2.fill();
+
+    function random(min, max) {
+      if (arguments.length < 2) {
+        max = min;
+        min = 0;
+      }
+
+      if (min > max) {
+        var hold = max;
+        max = min;
+        min = hold;
+      }
+
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function maxOrbit(x, y) {
+      var max = Math.max(x, y),
+        diameter = Math.round(Math.sqrt(max * max + max * max));
+      return diameter / 2;
+    }
+
+    var Star = function () {
+      this.orbitRadius = random(maxOrbit(w, h));
+      this.radius = random(60, this.orbitRadius) / 12;
+      this.orbitX = w / 2;
+      this.orbitY = h / 2;
+      this.timePassed = random(0, maxStars);
+      this.speed = random(this.orbitRadius) / 200000;
+      this.alpha = random(2, 10) / 10;
+
+      count++;
+      stars[count] = this;
+    };
+
+    Star.prototype.draw = function () {
+      var x = Math.sin(this.timePassed) * this.orbitRadius + this.orbitX,
+        y = Math.cos(this.timePassed) * this.orbitRadius + this.orbitY,
+        twinkle = random(10);
+
+      if (twinkle === 1 && this.alpha > 0) {
+        this.alpha -= 0.05;
+      } else if (twinkle === 2 && this.alpha < 1) {
+        this.alpha += 0.05;
+      }
+
+      ctx.globalAlpha = this.alpha;
+      ctx.drawImage(
+        canvas2,
+        x - this.radius / 2,
+        y - this.radius / 2,
+        this.radius,
+        this.radius
+      );
+      this.timePassed += this.speed;
+    };
+
+    for (var i = 0; i < maxStars; i++) {
+      new Star();
+    }
+
+    function animation() {
+      ctx.globalCompositeOperation = "source-over";
+      ctx.globalAlpha = 0.5;
+      // hue += .5
+      // if (hue > 1000) {
+      //   hue = 0 
+      // }
+      ctx.fillStyle = "hsla(" + hue + ", 64%, 6%, 1)";
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.globalCompositeOperation = "lighter";
+      for (var i = 1, l = stars.length; i < l; i++) {
+        stars[i].draw();
+      }
+
+      window.requestAnimationFrame(animation);
+    }
+    animation();
+  </script>
+  <script>
+    var h1 = document.querySelector('.h1')
+    var time = new Date().getHours()
+    var str = 'hello'
+    if (6 <= time && time <= 10) {
+      str = 'Buongiorno~'
+    } else if (10 < time && time <= 14) {
+      str = 'Buon pomeriggio~'
+    } else if (14 < time && time <= 17) {
+      str = '下午好~'
+    } else if (17 < time && time <= 21) {
+      str = 'Buona sera~'
+    } else if (21 < time && time <= 24) {
+      str = 'Buona notte~'
+    } else if (0 < time && time < 6) {
+      str = 'Bel sogno~'
+    }
+    h1.innerHTML = str;
+
+    let c = 0;
+    document.querySelector("body").addEventListener("click", function () {
+      if (c++ == 3) {
+        alert("别点了，我没做其他的...");
+      } else if (c == 6) {
+        alert("真没做..");
+      }else if (c == 9) {
+        alert("🍅");
+      }
+    });
+  </script>
+</body>
+
+</html>
