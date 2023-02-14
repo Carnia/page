@@ -391,6 +391,7 @@
       * {
         cursor: pointer;
         user-select: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       }
       .bottom-text {
         font-size: 30px;
@@ -420,7 +421,7 @@
         <span>my forever love</span>
       </div>
       `;
-      rose.addEventListener("touchstart", (e) => {
+      rose.addEventListener("click", (e) => {
         e.stopPropagation();
         if (rose.classList.contains("active")) {
           rose.classList.remove("active");
@@ -430,7 +431,7 @@
           bottomText.classList.add("active");
         }
       });
-      document.body.addEventListener("touchstart", () => {
+      document.body.addEventListener("click", () => {
         if (rose.classList.contains("active")) {
           rose.classList.remove("active");
           bottomText.classList.remove("active");
