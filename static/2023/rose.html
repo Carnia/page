@@ -430,23 +430,7 @@
           bottomText.classList.add("active");
         }
       });
-      rose.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (rose.classList.contains("active")) {
-          rose.classList.remove("active");
-          bottomText.classList.remove("active");
-        } else {
-          rose.classList.add("active");
-          bottomText.classList.add("active");
-        }
-      });
       document.body.addEventListener("touchstart", () => {
-        if (rose.classList.contains("active")) {
-          rose.classList.remove("active");
-          bottomText.classList.remove("active");
-        }
-      });
-      document.body.addEventListener("click", () => {
         if (rose.classList.contains("active")) {
           rose.classList.remove("active");
           bottomText.classList.remove("active");
